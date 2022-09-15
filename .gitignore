@@ -1,0 +1,6 @@
+backround.py
+
+*.pdf
+
+/.vscode
+/__pychche__
