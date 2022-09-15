@@ -4,3 +4,5 @@ backround.py
 
 /.vscode
 /__pychche__
+*.pyc
+shelves.json

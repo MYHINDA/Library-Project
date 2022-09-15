@@ -1,36 +1,49 @@
+from asyncore import read
 from Library import Book, Shelf, Reader, Library
 from login import login
 from pymongo import MongoClient
 import requests
 
+
+client = MongoClient(port=27017)
 def start_db():
 
     if  login():
         
         collection_users = "users"
         collection_library = "Library"
+        collection_readers = "Readers"
 
 
-        client = MongoClient(port=27017)
         db_users = client[collection_users]
 
         list_names = collection_users in db_users.list_collection_names()
+        
         if list_names:
             db_users.drop_collection(collection_users)
         db_users = client[collection_users]
         
         user_documents = db_users[collection_users]
 
-        db_library = client["Library"]
+        db_library = client[collection_library]
 
-        # list_names = collection_library in db_library.list_collection_names()
+        list_names = collection_library in db_library.list_collection_names()
 
-        # if list_names:
-        #     db_library.drop_collection(collection_library)
-        # db_library = client[collection_library]
+        if list_names:
+            db_library.drop_collection(collection_library)
+        db_library = client[collection_library]
 
         library_documents = db_library[collection_library]
 
+        db_readers = client[collection_readers]
+
+        list_names = collection_readers in db_readers.list_collection_names()
+
+        if list_names:
+            db_readers.drop_collection(collection_readers)
+        db_readers = client[collection_readers]
+
+        reader_documents = db_readers[collection_readers]
 
         resp = requests.get("https://jsonplaceholder.typicode.com/users", verify=False)
         users = resp.json()
@@ -66,10 +79,10 @@ def start_db():
         s3.add_book(b4)
         s3.add_book(b5)
 
-        for i,shelf in enumerate(l.shelves):
+        for shelf in l.shelves:
             books = [x.normelize() for x in shelf.books]
 
-            obj ={ "shelf": i + 1, "books": books }
+            obj = { "is_shelf_full": shelf.is_shelf_full, "books": books }
 
             library_documents.insert_one(obj)
 
@@ -79,12 +92,24 @@ def start_db():
         r1.read_book("AA")
         r2.read_book("BB")
 
-
-
         l.readers.append(r1)
         l.readers.append(r2)
+        
+        for reader in l.readers:
+            
+            obj = {"id": reader.id, "name": reader.name, "books": reader.books}
+
+            reader_documents.insert_one(obj)
+        
+        
+        
+        
+        
         
         return True
     else:
         print("access denied")
         return False
+
+
+start_db()

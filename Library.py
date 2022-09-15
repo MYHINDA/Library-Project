@@ -15,7 +15,7 @@ class Book:
             "author": self.author
         }
         return obj
-
+    
 
 class Shelf:
     def __init__(self) -> None:
@@ -65,7 +65,10 @@ class Reader:
         time_stamp = datetime.datetime.fromtimestamp(
             time.time()).strftime('%d/%m/%Y')
 
-        obj = {"title": title, "dete": time_stamp}
+        obj = {
+            "title": title, 
+            "dete": time_stamp
+            }
 
         self.books.append(obj)
 

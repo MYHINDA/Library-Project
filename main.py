@@ -19,10 +19,10 @@ if details_for_db.login() == True:
             "For exit - Press 11")
         choise = int(input())
         match choise:
-            case 1:switch_functions.add_abook()
+            case 1: switch_functions.add_abook()
             case 2: switch_functions.delete_abook()
             case 3: switch_functions.change_abook()
-            case 4:switch_functions.register_anew_reader()
+            case 4: switch_functions.register_anew_reader()
             case 5: switch_functions.remove_areader()
             case 6: switch_functions.search_abook_by_author()
             case 7: switch_functions.read_abook_by_areader()
