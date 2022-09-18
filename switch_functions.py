@@ -53,7 +53,7 @@ def order_all_books():
 
 def save_all_data():
 
-    
+        
     library = client.get_database('Library')
 
     shelves = library.get_collection('Library').find()
@@ -61,20 +61,22 @@ def save_all_data():
     shelves = [{"is_shelf_full": shelf["is_shelf_full"],
                 "books:": shelf["books"]} for shelf in shelves]
 
-    
-    
-    readers = library.get_collection('Readers').find()
-    readers = [{"id":reader["id"], "name": reader["name"], "books": reader["books"]} for reader in readers]
-    
+    db = client.get_database('Readers')
+
+    readers = db.get_collection('Readers').find()
+    readers = [{"id": reader["id"], "name": reader["name"],
+                "books": reader["books"]} for reader in readers]
+
     file_name = input("Enter file name: ")
     file_name = './' + file_name + '.json'
 
     with open(file_name, 'w', encoding='utf_8') as file:
-        
-        file.write("{ \"shelves:\" ")
+
+        file.write("{ \"shelves:\": ")
         file.write(json.dumps(shelves, indent=2))
 
-        file.write("{\"reders:\"")
+        file.write(",")
+        file.write("\"readers:\":")
         file.write(json.dumps(readers, indent=2))
 
         file.write("}")
