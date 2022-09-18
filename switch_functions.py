@@ -85,6 +85,18 @@ def save_all_data():
 
 
 def load_data():
-    pass
+    db = client["New_data"]
+
+    collection = db["New_data"]
+
+    with open("./shelves.json", 'r') as f:
+
+        my_data = json.load(f)
+        if isinstance(my_data, list):
+            collection.insert_many(my_data)
+        else:
+            collection.insert_one(my_data)
+
+
 
 
