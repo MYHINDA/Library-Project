@@ -3,52 +3,58 @@ from details_for_db import client
 import json
 
 
-def add_abook():
-    book = Book()
-    book.title = input("Enter The Book Title: ")
-    book.author = input("Enter the author: ")
-    book.num_of_pages = input("Enter number of pages in the book: ")
-    Library.add_new_book(book)
+def add_abook(lib):
+    
+    title = input("Enter The Book Title: ")
+    author = input("Enter the author: ")
+    num_of_pages = input("Enter number of pages in the book: ")
+    book = Book(author,title,num_of_pages)
+    lib.add_new_book( book)
     
 
-def delete_abook():
+def delete_abook(lib):
     title = input("Enter the title of book you want to delete")
-    Library.delete_book(title)
+    lib.delete_book(title)
     
 
-def change_abook():
+def change_abook(lib):
     title1 = input("enter the title of the first book to change")
     title2 = input("enter the second title")
-    Library.change_location(title1, title2)
+    lib.change_location(title1, title2)
     
 
-def register_anew_reader():
+def register_anew_reader(lib):
     name = input("Enter the reader name: ")
     id = int(input("Enter the reader id: "))
-    Library.register_reader(name, id)
+    lib.register_reader(name, id)
     
 
-def remove_areader():
+def remove_areader(lib):
     name = input("Enter name of reader to remove: ")
-    Library.remove_reader(name)
+    lib.remove_reader(name)
     print("Removed reader " + name + " from list")
 
 
-def search_abook_by_author():
+def search_abook_by_author(lib):
     author = input("Enter an author name: ")
-    Library.search_by_author(author)
+    lib.search_by_author(author)
 
 
-# take name or id??
-def read_abook_by_areader():
-    name = input("Enter the reader's name: ")
+def read_abook_by_areader(lib):
+    
+    id = int(input("Enter the reader's name: "))
     title = input("Enter the title of the book: ")
-    Reader.read_book(title)
-    Library.reader_read_book(title,name)
+
+    for rdr in lib.readers:
+        if rdr.id == id:
+            rdr.read_book(title)
+            lib.reader_read_book(title, rdr.name)
+            return
+    print("reader not exist")
 
 
-def order_all_books():
-    Library.order_books2()
+def order_all_books(lib):
+    lib.order_books2()
 
 
 def save_all_data():
@@ -80,8 +86,6 @@ def save_all_data():
         file.write(json.dumps(readers, indent=2))
 
         file.write("}")
-
-
 
 
 def load_data():

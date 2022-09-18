@@ -93,16 +93,19 @@ class Library:
         elif not self.is_there_place_for_new_book:
             print("The Library is full")
 
-        else:
+        elif len(self.shelves) == 0:
+            shelf.books.append(book)
+            print("added book " + book.title)
 
-           for shelf in self.shelves:
-               if not shelf.is_shelf_full:
+        else:
+            for shelf in self.shelves:
+                if not shelf.is_shelf_full:
                     shelf.books.append(book)
                     print("added book " + book.title)
 
                     if len(shelf.books) == 5:
                         shelf.is_shelf_full = True
-
+                    
                     return
 
     # upgrade to list comprehetion
@@ -128,7 +131,7 @@ class Library:
         for i,shelf in enumerate(self.shelves):
             for b in shelf.books:
                 if title == b.title:
-                    print("find book in index " + i + " , " + shelf.books.index(b))
+                    print("find book in index " + str(i) + " , " + str(shelf.books.index(b)))
                     return i, shelf.books.index(b)
 
         print("book not found")
@@ -150,6 +153,7 @@ class Library:
                 self.shelves[sh2].books[b2], self.shelves[sh1].books[b1]
 
             print("books location changhed")
+            return
         
         print("change location fail")
 

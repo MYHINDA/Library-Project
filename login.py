@@ -1,8 +1,7 @@
 import requests
 
-
 def login():
-
+    
     resp = requests.get(
         "https://jsonplaceholder.typicode.com/users/", verify=False)
     users = resp.json()
