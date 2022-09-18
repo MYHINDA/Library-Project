@@ -88,8 +88,8 @@ def load_data():
     db = client["New_data"]
 
     collection = db["New_data"]
-
-    with open("./shelves.json", 'r') as f:
+    file_name = input("Enter file data name: ")
+    with open("./" + file_name + ".json", 'r') as f:
 
         my_data = json.load(f)
         if isinstance(my_data, list):
