@@ -1,4 +1,4 @@
-from Library import Book, Reader, Library
+from Library import Book
 from details_for_db import client
 import json
 
@@ -11,34 +11,28 @@ def add_abook(lib):
     book = Book(author,title,num_of_pages)
     lib.add_new_book( book)
     
-
 def delete_abook(lib):
     title = input("Enter the title of book you want to delete")
     lib.delete_book(title)
     
-
 def change_abook(lib):
     title1 = input("enter the title of the first book to change")
     title2 = input("enter the second title")
     lib.change_location(title1, title2)
     
-
 def register_anew_reader(lib):
     name = input("Enter the reader name: ")
     id = int(input("Enter the reader id: "))
     lib.register_reader(name, id)
     
-
 def remove_areader(lib):
     name = input("Enter name of reader to remove: ")
     lib.remove_reader(name)
     print("Removed reader " + name + " from list")
 
-
 def search_abook_by_author(lib):
     author = input("Enter an author name: ")
     lib.search_by_author(author)
-
 
 def read_abook_by_areader(lib):
     
@@ -52,10 +46,8 @@ def read_abook_by_areader(lib):
             return
     print("reader not exist")
 
-
 def order_all_books(lib):
     lib.order_books2()
-
 
 def save_all_data():
 
@@ -86,7 +78,6 @@ def save_all_data():
         file.write(json.dumps(readers, indent=2))
 
         file.write("}")
-
 
 def load_data():
     db = client["New_data"]

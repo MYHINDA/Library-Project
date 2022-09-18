@@ -108,7 +108,6 @@ class Library:
                     
                     return
 
-    # upgrade to list comprehetion
     def delete_book(self, title):
         for shelf in self.shelves:
             for book in shelf.books:
