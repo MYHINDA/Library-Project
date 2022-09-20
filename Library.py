@@ -81,9 +81,9 @@ class Library:
     def is_there_place_for_new_book(self):
 
         for shelf in self.shelves:
-            if shelf.is_shelf_full:
-                return False
-            return True
+            if not shelf.is_shelf_full:
+                return True
+            return False
 
     def add_new_book(self, book):
 
