@@ -190,7 +190,7 @@ class Library:
             print("invalid input")
 
             return
-        list(map(lambda x: self.readers.remove(x)
+        list(filter(lambda x: self.readers.remove(x)
              if x.name == name else x, self.readers))
 
     
