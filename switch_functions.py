@@ -51,7 +51,6 @@ def read_abook_by_areader(lib):
     list(filter(lambda rdr: temp(rdr) if rdr.id ==
          id else rdr, lib.readers))
 
-
 def order_all_books(lib):
     lib.order_books2()
 
