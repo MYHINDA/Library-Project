@@ -36,15 +36,21 @@ def search_abook_by_author(lib):
 
 def read_abook_by_areader(lib):
     
-    id = int(input("Enter the reader's name: "))
+    id = int(input("Enter the reader's id: "))
+
+    if list(filter(lambda x: x.id == id, lib.readers)) == []:
+        print("reader not exist")
+        return
+
     title = input("Enter the title of the book: ")
 
-    for rdr in lib.readers:
-        if rdr.id == id:
-            rdr.read_book(title)
-            lib.reader_read_book(title, rdr.name)
-            return
-    print("reader not exist")
+    def temp(rdr):
+        rdr.read_book(title)
+        lib.reader_read_book(title, rdr.name)
+        
+    list(filter(lambda rdr: temp(rdr) if rdr.id ==
+         id else rdr, lib.readers))
+
 
 def order_all_books(lib):
     lib.order_books2()
