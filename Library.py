@@ -94,6 +94,7 @@ class Library:
             print("The Library is full")
 
         elif len(self.shelves) == 0:
+            shelf = self.shelves[0]
             shelf.books.append(book)
             print("added book " + book.title)
 
