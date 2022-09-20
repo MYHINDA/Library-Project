@@ -1,6 +1,6 @@
-from details_for_db import l, start_db
 import login
-import switch_functions
+from switch_functions import *
+from details_for_db import l, start_db
 
 
 if login.login() == True:
@@ -22,14 +22,14 @@ if login.login() == True:
                 "For exit - Press 11\n")
         choise = int(input("your choice: "))
         match choise:
-            case 1: switch_functions.add_abook(l)
-            case 2: switch_functions.delete_abook(l)
-            case 3: switch_functions.change_abook(l)
-            case 4: switch_functions.register_anew_reader(l)
-            case 5: switch_functions.remove_areader(l)
-            case 6: switch_functions.search_abook_by_author(l)
-            case 7: switch_functions.read_abook_by_areader(l)
-            case 8: switch_functions.order_all_books(l)
-            case 9: switch_functions.save_all_data(l)
-            case 10: switch_functions.load_data(l)
+            case 2: delete_abook(l)
+            case 3: change_abook(l)
+            case 4: register_anew_reader(l)
+            case 5: remove_areader(l)
+            case 6: search_abook_by_author(l)
+            case 7: read_abook_by_areader(l)
+            case 8: order_all_books(l)
+            case 9: save_all_data(l)
+            case 1: add_abook(l)
+            case 10:load_data(l)
             case 11: break

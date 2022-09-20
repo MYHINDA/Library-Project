@@ -1,6 +1,7 @@
+import json
+
 from Library import Book
 from details_for_db import client
-import json
 
 
 def add_abook(lib):
@@ -96,7 +97,3 @@ def load_data():
             collection.insert_many(my_data)
         else:
             collection.insert_one(my_data)
-
-
-
-
