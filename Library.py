@@ -167,9 +167,9 @@ class Library:
         
         print("Raplaced successfully")
     
-    def order_books2(self):
+    def order_books2(self): 
 
-        [x.order_books() for x in self.shelves]
+        list(map(lambda x:x.order_books(), self.shelves))
         print("updated")
     
     def register_reader(self, name, id):
