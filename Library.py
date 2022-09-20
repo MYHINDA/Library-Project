@@ -192,8 +192,7 @@ class Library:
             return
         list(filter(lambda x: self.readers.remove(x)
              if x.name == name else x, self.readers))
-
-    
+ 
     def reader_read_book(self, title, name):
 
         if not isinstance(title and name, str):
@@ -216,10 +215,7 @@ class Library:
 
         books = []
 
-        for i in self.shelves:
-            for j in i.books:
-                if j.author == author:
-                    books.append(j.title)
-                    print(author + " write the book " + j.title)
-                    
+        list(map(lambda i: list(filter(lambda j: books.append(j.title)
+             if j.author == author else j, i.books)), self.shelves))
+
         print(author + " write the books: ", books)
