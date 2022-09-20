@@ -167,7 +167,7 @@ class Library:
         
         print("Raplaced successfully")
     
-    def order_books2(self): 
+    def order_books2(self):
 
         list(map(lambda x:x.order_books(), self.shelves))
         print("updated")
@@ -190,8 +190,9 @@ class Library:
             print("invalid input")
 
             return
+        list(map(lambda x: self.readers.remove(x)
+             if x.name == name else x, self.readers))
 
-        [self.readers.remove(x) for x in self.readers if x.name == name]
     
     def reader_read_book(self, title, name):
 
