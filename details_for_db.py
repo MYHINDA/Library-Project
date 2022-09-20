@@ -9,38 +9,20 @@ l = Library()
 
 def start_db():
 
-    collection_users = "users"
+    db_name = "LIBRARY"
+    db = client[db_name]
+
+    collection_users = "Users"
     collection_library = "Library"
     collection_readers = "Readers"
 
-    db_users = client[collection_users]
+    list_names = db.list_collection_names()
 
-    list_names = collection_users in db_users.list_collection_names()
+    if collection_users in list_names:
+        db.drop_collection(collection_users)
+    db.create_collection(collection_users)
 
-    if list_names:
-        db_users.drop_collection(collection_users)
-    db_users = client[collection_users]
-
-    user_documents = db_users[collection_users]
-
-    db_library = client[collection_library]
-
-    list_names = collection_library in db_library.list_collection_names()
-
-    if list_names:
-        db_library.drop_collection(collection_library)
-    db_library = client[collection_library]
-
-    library_documents = db_library[collection_library]
-    db_readers = client[collection_readers]
-    list_names = collection_readers in db_readers.list_collection_names()
-
-    if list_names:
-        db_readers.drop_collection(collection_readers)
-
-    db_readers = client[collection_readers]
-
-    reader_documents = db_readers[collection_readers]
+    user_documents = db[collection_users]
 
     resp = requests.get(
         "https://jsonplaceholder.typicode.com/users", verify=False)
@@ -49,6 +31,14 @@ def start_db():
 
     for user in users:
         user_documents.insert_one(user)
+
+
+    if collection_library in list_names:
+        db.drop_collection(collection_library)
+
+    db.create_collection(collection_library)
+
+    library_documents = db[collection_library]
 
     b = Book("Hinda", "a", 100)
     b1 = Book("Avi", "b", 150)
@@ -67,15 +57,23 @@ def start_db():
 
     s1.add_book(b)
     s1.add_book(b1)
-    s2.add_book(b2)
     s2.add_book(b3)
-    s3.add_book(b4)
+    s2.add_book(b2)
     s3.add_book(b5)
+    s3.add_book(b4)
 
     for shelf in l.shelves:
         books = [x.normelize() for x in shelf.books]
         obj = {"is_shelf_full": shelf.is_shelf_full, "books": books}
         library_documents.insert_one(obj)
+
+
+    if collection_readers in list_names:
+        db.drop_collection(collection_readers)
+
+    db.create_collection(collection_readers)
+
+    reader_documents = db[collection_readers]
 
     r1 = Reader(1, "Hinda")
     r2 = Reader(2, "Hershtik")
@@ -85,7 +83,7 @@ def start_db():
 
     l.readers.append(r1)
     l.readers.append(r2)
-    
+
     for reader in l.readers:
         obj = {"id": reader.id, "name": reader.name, "books": reader.books}
         reader_documents.insert_one(obj)
